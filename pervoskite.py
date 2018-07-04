@@ -3,6 +3,7 @@ from typing import List, Any
 import pandas as pd
 import re
 from chemspipy import ChemSpider
+
 cs = ChemSpider('f84b99d9-9735-4047-b7e5-10273f7a08aa')
 
 
@@ -132,10 +133,75 @@ print('organic (molecular) cations Composition[1]', organicCationsComposition[1]
 
 for x in organicCationsComposition: print(x)
 
+
 print('All Input atoms: ', atomInput)
 print('All Organic atoms: ', atomOrganic)
 
+searchCompound = moleculeComposition.copy()
+searchOrganic = organicCationsComposition.copy()
+organicFound = 0
+
+for elementComposition in searchCompound[0::]:
+    searchAtomNum = 0
+    organic = False
+    for elements in elementComposition:             #elements: ['C', 4]
+        for x in atomOrganic:
+            if elements[0] == x:
+                organic = True
+
+                searchAtomNum += elements[1]
+                #print("Adding: ", elements[1], "SearchAtomNum: ", searchAtomNum)
+
+                keepSearching = True
+                possible = ""
+                for orgElements in searchOrganic:           # orgElements: [['C', 1], ['N', 3], ['H', 6]]
+                    orgAtomNum = 0
+                    orgElementsCounter = 0
+                    print("orgElements: ", orgElements, "len: ", len(orgElements))
+
+                    if(keepSearching):
+                        for orgAtom in orgElements:         # orgAtom: ['C', 1]
+                            orgAtomName = orgAtom[0]
+                            orgAtomNum += orgAtom[1]
 
 
-for result in cs.search('Cs8Br24Bi4Ag4', 'formula'):
-    print(result)
+                            # print("orgAtomName: ", orgAtomName);
+                            # print("Checking: ", elements[0], "=", orgAtomName);
+                            if elements[0] == orgAtomName:
+                                # print("Match found: ", elementComposition, "= ", orgElements);
+                                remaining = elements[1] - orgAtomNum
+
+                                if(remaining > -1):
+                                    keepSearching = True
+                                else:
+                                    keepSearching = False
+                                    print(elements[0], ":", remaining)
+
+                            orgElementsCounter = 1 + orgElementsCounter
+                            print("Counter: ", orgElementsCounter)
+
+                            if(orgElementsCounter == len(orgElements)):
+                                print("Last cation atom search for: ", orgElements)
+
+                                if(keepSearching):
+                                    possible = ["Possible Organic Cation:" + str(orgElements)]
+                                    elementComposition.append(possible)
+
+
+
+
+
+    if organic!= True:
+        # print(elementComposition, "is not organic")
+        elementComposition.append("Non-Organic")
+
+# for x in searchCompound: print(x)
+fh = open("log.txt","w")
+
+
+
+for num, name in enumerate(searchCompound[0::], start=0):
+    print("searchCompound {}: {}".format(num, name))
+    fh.write("searchCompound {}: {}".format(num, name))
+
+fh.close()
