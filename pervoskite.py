@@ -34,7 +34,7 @@ try:
 
     for i, compositionName in enumerate(organicCatFile['Name']):
         # print(compositionName)
-        nameOrganic.insert(i, [compositionName])
+        nameOrganic.insert(i, compositionName)
 
     atomInput = eachCompound.getAtomList(moleculeComposition)
     atomOrganic = organicAtoms.getAtomList(organicCationsComposition)
@@ -75,105 +75,72 @@ organicFound = 0
 
 
 
-for index, elementComposition in enumerate(searchCompound[50:51]):
-
-
-
-    organicFoundName = list()
+for index, elementComposition in enumerate(searchCompound[0::]):
     organic = 0
-    orgElementsCounter = 0
-    elementCounter =0
 
     for elements in elementComposition:             #elements: ['C', 4]
         if elements[0] in atomOrganic:
-            organic = True
+            organic = organic + 1
         else:
             continue
 
-    if (organic):
-        print("elementComposition: ", elementComposition, "len: ", len(elementComposition))
-
-        if elements[0] in atomOrganic:
-            organic = True
-
-            keepSearching = True
-            possible = ""
-
-        #     for orElements in searchOrganicWName[0:1]:
-        #
-        #         for orgElements in orElements: # orgElements: [['C', 1], ['N', 3], ['H', 6]]
-        #
-        #             orgAtomNum = 0
-        #
-        #             if(keepSearching):
-        #                 for orgAtom in orgElements:         # orgAtom: ['C', 1]
-        #
-        #
-        #                     if len(orgElements)>1:
-        #                         print("orgElements: ", orgElements, "len: ", len(orgElements))
-        #                         print("orgAtom: ", orgAtom, "len: ", len(orgAtom))
-        #
-        #                         orgAtomName = orgAtom[0]
-        #                         orgAtomNum = orgAtom[1]
-        #
-        #                         # print("orgAtomName: ", orgAtomName);
-        #                         # print("Checking: ", elements[0], type(elements[0]), "=", orgAtomName, type(orgAtomName));
-        #                         # print("orgAtomNum: ", orgAtomNum)
-        #                         if elements[0] == orgAtomName:
-        #                             print("Match found: ", elementComposition, "= ", orgElements);
-        #                             remaining = elements[1] - orgAtomNum
-        #                             print("remaining: ", elements[1], "-", orgAtomNum, "= ", remaining)
-        #
-        #                             if (remaining > -1):
-        #                                 keepSearching = True
-        #                             else:
-        #                                 keepSearching = False
-        #                                 print(elements[0], ":", remaining)
-        #
-        #     orgElementsCounter = 1 + orgElementsCounter
-        #
-        #     print("Counter: ", orgElementsCounter)
-        #
-        #     sizeOfOrgElements = len(orgElements)
-        #     sizeOfelementComposition = len(elementComposition)
-        #
-        #     if (orgElementsCounter == sizeOfOrgElements and elementCounter == sizeOfelementComposition):
-        #         print(index, ": Last cation atom search for: ", orgElements)
-        #
-        #         if (keepSearching and (str(orElements[1]) not in organicFoundName)):
-        #             print("Possible Organic Cation: ",str(orElements[1]) ,"in ", elementComposition )
-        #             possible = (orElements[1])
-        #             organicFoundName.append(possible)
-        #
-        # elementCounter = 1 + elementCounter
-
-
-
-
-
-
-    elementComposition.append(organicFoundName)
-
-
-
-
-    if organic!= True:
-        # print(elementComposition, "is not organic")
+    if (organic < 2):
         elementComposition.append("Non-Organic")
 
+    else:
+        print("elementComposition: ", elementComposition, "len: ", len(elementComposition))
+        dontSearch = list()
+        possibleOrganic = list()
+
+        for elements in elementComposition:  # elements: ['C', 4]
+            print(" elements: ", elements, "len: ", len(elements))
+            organicSearchCounter = 0
+            currElem = elements[0]
+            currElemNum = elements[1]
+
+            for orgElementsWName in searchOrganicWName[0::]:
+                # print("       orgElementsWName: ", orgElementsWName, "len: ", len(orgElementsWName))
+
+                organicCompoundName = orgElementsWName[1]
+
+                for orgElements in orgElementsWName[0]:
+                    #print("         orgElements: ", orgElements, "len: ", len(orgElementsWName))
+                    if (organicCompoundName not in dontSearch):
+                        organicElem = orgElements[0]
+                        organicElemNum = orgElements[1]
+
+                        print("            currElem: ", currElem, "    currElemNum: ", currElemNum)
+                        print("         organicElem: ", organicElem, " organicElemNum: ", organicElemNum, " organicCompoundName: ", organicCompoundName)
+
+                        if (currElem != organicElem): continue
+                        else:
+                            numDifference = (currElemNum - organicElemNum)
+                            if numDifference < 0:
+                                print("          !!!", currElem, "[", currElemNum, "] -", organicElem, "[",
+                                      organicElemNum, "] =", numDifference)
+                                dontSearch.append(organicCompoundName)
+                                continue
+
+                            else:
+                                print("             ",currElem,"[" , currElemNum,"] -" ,organicElem ,"[" , organicElemNum,"] =" ,numDifference)
+
+
+        possibleOrganic = [item for item in  nameOrganic[0:len(nameOrganic)] if item not in dontSearch]
+        print(possibleOrganic)
+        elementComposition.append(possibleOrganic)
 
 #Print The searches for organic and inorganic results.
 
-for x in elementComposition: print(x)
+# for x in elementComposition: print(x)
 
-# logFileName = str("log" +dataset+ ".txt")
-# fh = open(logFileName,"w")
-#
-# for num, name in enumerate(searchCompound[0::], start=0):
-#     print("searchCompound {}: {}".format(num, name))
-#     fh.write("searchCompound {}: {}".format(num, name))
-#
-# fh.close()
+logFileName = str("log" +dataset+ ".txt")
+fh = open(logFileName,"w")
+
+for num, name in enumerate(searchCompound[0::], start=0):
+    print("searchCompound {}: {}".format(num, name))
+    fh.write("searchCompound {}: {}".format(num, name))
+
+fh.close()
 
 
 end = time.time()
