@@ -3,6 +3,7 @@ from typing import List, Any
 import pandas as pd
 import compoundProcessor as cp
 from chemspipy import ChemSpider
+import csv
 
 cs = ChemSpider('f84b99d9-9735-4047-b7e5-10273f7a08aa')
 
@@ -10,6 +11,7 @@ import time
 start = time.time()
 
 dataset = "Bandgap"   # Stability or Bandgap
+# dataset = "Stability"
 
 if (dataset ==  "Stability"): file = pd.read_csv('Input.csv')     # Stability Dataset
 if (dataset ==  "Bandgap"): file = pd.read_csv('HSE_GGA.csv')     # Bandgap Dataset
@@ -88,12 +90,12 @@ for index, elementComposition in enumerate(searchCompound[0::]):
         elementComposition.append("Non-Organic")
 
     else:
-        print("elementComposition: ", elementComposition, "len: ", len(elementComposition))
+        # print("elementComposition: ", elementComposition, "len: ", len(elementComposition))
         dontSearch = list()
         possibleOrganic = list()
 
         for elements in elementComposition:  # elements: ['C', 4]
-            print(" elements: ", elements, "len: ", len(elements))
+            # print(" elements: ", elements, "len: ", len(elements))
             organicSearchCounter = 0
             currElem = elements[0]
             currElemNum = elements[1]
@@ -109,15 +111,15 @@ for index, elementComposition in enumerate(searchCompound[0::]):
                         organicElem = orgElements[0]
                         organicElemNum = orgElements[1]
 
-                        print("            currElem: ", currElem, "    currElemNum: ", currElemNum)
-                        print("         organicElem: ", organicElem, " organicElemNum: ", organicElemNum, " organicCompoundName: ", organicCompoundName)
+                        # print("            currElem: ", currElem, "    currElemNum: ", currElemNum)
+                        # print("         organicElem: ", organicElem, " organicElemNum: ", organicElemNum, " organicCompoundName: ", organicCompoundName)
 
                         if (currElem != organicElem): continue
                         else:
                             numDifference = (currElemNum - organicElemNum)
                             if numDifference < 0:
-                                print("          !!!", currElem, "[", currElemNum, "] -", organicElem, "[",
-                                      organicElemNum, "] =", numDifference)
+                                # print("          !!!", currElem, "[", currElemNum, "] -", organicElem, "[",
+                                #       organicElemNum, "] =", numDifference)
                                 dontSearch.append(organicCompoundName)
                                 continue
 
@@ -126,7 +128,6 @@ for index, elementComposition in enumerate(searchCompound[0::]):
 
 
         possibleOrganic = [item for item in  nameOrganic[0:len(nameOrganic)] if item not in dontSearch]
-        print(possibleOrganic)
         elementComposition.append(possibleOrganic)
 
 #Print The searches for organic and inorganic results.
@@ -136,12 +137,21 @@ for index, elementComposition in enumerate(searchCompound[0::]):
 logFileName = str("log" +dataset+ ".txt")
 fh = open(logFileName,"w")
 
-for num, name in enumerate(searchCompound[0::], start=0):
-    print("searchCompound {}: {}".format(num, name))
-    fh.write("searchCompound {}: {}".format(num, name))
-
+for id, content in enumerate(searchCompound[0::], start=0):
+    print("searchCompound {}: {}".format(id, content))
+    fh.write("searchCompound {}, {}".format(id, content))
+    # for x in content:
+    #     print(id, ", ", x )
 fh.close()
 
 
 end = time.time()
 print("Completion time: ",end - start)
+
+
+# find the biggest cation in every search
+# OPTION 2 check the database where the data was bing parsed: Cif files from datadryad.org
+# poster info: talk about coding related project and talk about specific lession
+# learning more about perofskite specific
+# talk about stucture. talk about hwo they are tradetionally, now how we are placing organic molecules in different sites, preserving their stuff.
+# talk more about descriptor parsing  from databases
