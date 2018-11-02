@@ -3,15 +3,15 @@
 Scripts to identify and parse Organic cation A, cation X and anion B from a dataset of 1,346 HOIPs, which features 16 organic cations, 3 group-IV cations and 4 halide anions.
 
 ## Getting Started
-
-Scripts
-
-
-#### Prerequisite Packages
-
+### Prerequisite Packages
 pip install pandas
 pip install numpy 
 pip install ChemSpider
+
+
+### Running the scripts
+The scrips contain no arguments. So just run them in comandline. 
+
 
 
 ## Scripts
@@ -43,11 +43,6 @@ Helper class for perovskite.py that can -
   - Add same atoms for a composition to an array
   - Returns an array of unique Atoms in an composition (sorted)
   - Returns an array containing molecule composition
-
-
-## Running the scripts
-The scrips contain no arguments. So just run them in comandline. 
-
 
 ## Authors
 
