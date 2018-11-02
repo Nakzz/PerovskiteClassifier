@@ -6,8 +6,8 @@ from chemspipy import ChemSpider
 cs = ChemSpider('f84b99d9-9735-4047-b7e5-10273f7a08aa')
 
 
-filename = 'organicCations.csv'
-filename_out = 'organicCations_named.csv'
+filename = 'data\organicCations.csv'
+filename_out = 'output\organicCations_named.csv'
 
 organicCatFile = pd.read_csv(filename)
 

@@ -58,7 +58,7 @@ dataframe = pd.DataFrame(data)
 
 print(dataframe.to_string())
 
-dataframe.to_csv("./parsedExport.csv",mode='w', index=False, header=False )
+# dataframe.to_csv("./parsedExport.csv",mode='w', index=False, header=False )
 
 # for i, id in enumerate(file['ID(Khazana)']):
 #     print(id)

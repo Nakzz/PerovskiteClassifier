@@ -13,10 +13,10 @@ start = time.time()
 dataset = "Bandgap"   # Stability or Bandgap
 # dataset = "Stability"
 
-if (dataset ==  "Stability"): file = pd.read_csv('Input.csv')     # Stability Dataset
-if (dataset ==  "Bandgap"): file = pd.read_csv('HSE_GGA.csv')     # Bandgap Dataset
+if (dataset ==  "Stability"): file = pd.read_csv('./data/Input.csv')     # Stability Dataset
+if (dataset ==  "Bandgap"): file = pd.read_csv('./data/HSE_GGA.csv')     # Bandgap Dataset
 
-organicCatFile = pd.read_csv('organicCations_named.csv')
+organicCatFile = pd.read_csv('./data/organicCations_named.csv')
 
 try:
     atomList = list()
@@ -134,7 +134,7 @@ for index, elementComposition in enumerate(searchCompound[0::]):
 
 # for x in elementComposition: print(x)
 
-logFileName = str("log" +dataset+ ".txt")
+logFileName = str("./output/log" +dataset+ ".txt")
 fh = open(logFileName,"w")
 
 for id, content in enumerate(searchCompound[0::], start=0):
