@@ -12,9 +12,9 @@ dirname = './cif_merge'
 
 
 i =0
-file = pd.read_csv('HSE_GGA.csv')
-fileID = file['ID(Khazana)'].copy()
-fileComposition = file['Material composition'].copy
+# file = pd.read_csv('./data/HSE_GGA.csv')
+# fileID = file['ID(Khazana)'].copy()
+# fileComposition = file['Material composition'].copy
 
 for filename in (os.listdir(dirname)):
 
@@ -58,7 +58,7 @@ dataframe = pd.DataFrame(data)
 
 print(dataframe.to_string())
 
-# dataframe.to_csv("./parsedExport.csv",mode='w', index=False, header=False )
+# dataframe.to_csv("./output/parsedExport.csv",mode='w', index=False, header=False )
 
 # for i, id in enumerate(file['ID(Khazana)']):
 #     print(id)

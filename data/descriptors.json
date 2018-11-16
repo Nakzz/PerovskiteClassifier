@@ -1,0 +1,24 @@
+{
+  "organicCations" : {
+    "NH4" : ["Ammonium ion"],
+    "C2H6NH2" : ["Methanaminium"],
+    "CH3NH3" : ["dimethylammonium"],
+    "C3H9NH" : ["trimethylammonium","2-Propanaminium","1-Propanaminium","N-Methylethanaminium ion"],
+    "C4H12N" : ["tetramethylammonium"],
+    "CH3CH2NH3" : ["dimethylammonium"],
+    "CH3CH2CH2NH3" : ["trimethylammonium"],
+    "C2H6CHNH3" : ["trimethylammonium"],
+    "CH3CH2CH2CH2NH3" : ["tetramethylammonium"],
+    "OHNH3" : ["Hydroxyammonium"],
+    "HCN2H4" : ["Iminomethanaminium"],
+    "NH2NH3" : ["Hydrazinium"],
+    "CN3H6" : ["guanidinium"],
+    "C3H6N2" : ["Dimethylcyanamide"],
+    "C3H5N2" : ["imidazolium"]
+
+  },
+
+  "anionX" : ["F", "Cl", "Br", "I"],
+
+  "cationB" : ["Ge", "Sn", "Pb"]
+}

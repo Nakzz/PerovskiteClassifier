@@ -1,9 +1,6 @@
-from typing import List, Any
-
 import pandas as pd
-import compoundProcessor as cp
+from v1 import compoundProcessor as cp
 from chemspipy import ChemSpider
-import csv
 
 cs = ChemSpider('f84b99d9-9735-4047-b7e5-10273f7a08aa')
 

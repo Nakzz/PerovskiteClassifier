@@ -1,0 +1,38 @@
+
+- compoundObject:                 - make changes to CompoundProcessor
+    this.ChemicalFormula = ChemicalFormula
+    this.cationB = []
+    this.anionX = []
+    this.cationA = []
+    this.organic = boolean
+    this.composition = []
+
+    constructor class (ChemicalFormula):
+        - initialize vars
+        - fill this.compsition with exisiting methods
+
+        - if
+
+- descriptor.json
+    [
+        all the anions cations and their name if needed
+    ]
+
+- perovskiteClassifier()           MAIN?
+
+    - parse from descriptors JSON
+        - create anionX array
+        - create cationA array
+        - create cationB array
+        -
+
+    -parse from CSV
+    - for each row
+        create new compoundObject
+
+
+    - export new CSV with following columns
+        - material composition
+        - Organic cation A
+        - Cation B
+        - anion X
