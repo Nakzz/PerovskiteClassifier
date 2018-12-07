@@ -11,18 +11,18 @@ class CompoundObject:
     allCationsB = descriptorsData["cationB"]
     allOrganicCationsA = descriptorsData["organicCations"]
 
-    MaterialComposition = ""
+    materialComposition = ""
     anionX = ""
     cationB = ""
     anionX = ""
     cationA = ""
-    organic = False                 #TODO: add classifier for organic
+    # organic = False                 #TODO: add classifier for organic
     composition = []
 
 
 
     def __init__(self, ChemicalFormula):
-        self.MaterialComposition = ChemicalFormula
+        self.materialComposition = ChemicalFormula
         self.composition = self.getComposition(ChemicalFormula)
 
 
@@ -65,12 +65,14 @@ class CompoundObject:
             # print(atom)
             if (atom[0] == self.cationB.replace(" ", "")):
                 # print("removing: ", atom[0])
+                self.cationB = self.cationB + str(atom[1])
                 cationA.remove(atom)
 
         for atom in cationA:
             # print(atom[0])
             if (atom[0] == self.anionX.replace(" ", "")):
-                print("removing: ", atom[0])
+                # print("removing: ", atom[0])
+                self.anionX = self.anionX + str(atom[1])
                 cationA.remove(atom)
 
         for x in cationA:

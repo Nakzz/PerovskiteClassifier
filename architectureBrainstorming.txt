@@ -7,6 +7,11 @@
     this.organic = boolean
     this.composition = []
 
+    cationA = radi
+
+    calculate goldmanchimth tollerence factor
+
+
     constructor class (ChemicalFormula):
         - initialize vars
         - fill this.compsition with exisiting methods
@@ -36,3 +41,5 @@
         - Organic cation A
         - Cation B
         - anion X
+        - more descriptors
+

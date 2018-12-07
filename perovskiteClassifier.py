@@ -31,15 +31,21 @@ try:
         eachCompound = co.CompoundObject(composition)
         moleculeComposition.append(eachCompound)
 
-
-
-    # atomInput = eachCompound.getAtomList(moleculeComposition.index(0).)
-    # atomOrganic = organicAtoms.getAtomList(organicCationsComposition)
-
-
 except KeyError:
     print("Make sure column called: Material composition exists.")
 
 except LookupError:
     print("Something wrong with indexing. Check the searches.")
+
+data = list()
+
+for  x in moleculeComposition:
+    # print("Composition: " ,x.materialComposition, "   Organic CationA:", x.cationA, "   CationB:", x.cationB, "   AnionX:", )
+    data.append((x.materialComposition, x.cationA, x.cationB, x.anionX))
+
+
+df = pd.DataFrame(data)
+print(df.head())
+
+df.to_csv("./output/perovskiteClassifierOutput.csv", sep=',')
 
