@@ -1,5 +1,6 @@
 import re
 import json
+import perovskiteClassifier as main
 
 class CompoundObject:
 
@@ -7,14 +8,22 @@ class CompoundObject:
     with open('./data/descriptors.json') as json_data_file:
         descriptorsData = json.load(json_data_file)
 
-    allAnionsX = descriptorsData["anionX"]
-    allCationsB = descriptorsData["cationB"]
-    allOrganicCationsA = descriptorsData["organicCations"]
+    datasetName = main.dataset
+
+    if(datasetName == "Bandgap"):
+        allXsite = descriptorsData[datasetName]["anionX"]
+        allBsite = descriptorsData[datasetName]["cationB"]
+        allAsite = descriptorsData[datasetName]["organicCations"]
+
+    if(datasetName == "ORR"):
+        allBsite = descriptorsData[datasetName]["bSite"]
+        allAsite = descriptorsData[datasetName]["aSite"]
+        allAorBSite = descriptorsData[datasetName]["AorB"]
+        allXsite = descriptorsData[datasetName]["anionX"]
 
     materialComposition = ""
     anionX = ""
     cationB = ""
-    anionX = ""
     cationA = ""
     # organic = False                 #TODO: add classifier for organic
     composition = []
@@ -29,26 +38,29 @@ class CompoundObject:
 
         self.indentifyOrganicCation(self.composition)
 
-        # for x in self.allAnionsX:
+        # for x in self.allXsite:
         #     print(x)
 
         print(self.cationA)
-
-
-
 
         # Identifies CationB and AnionX
     def indentifyClassifiers(self, atomName):
         # print(atomName)
 
         ## identify catB
-        for catB in self.allCationsB:
+        for catB in self.allBsite:
             if catB == atomName:
                 # print(catB, ": ", type(catB))
                 self.cationB = self.cationB + catB
 
         ## identify anionX
-        for anX in self.allAnionsX:
+        for anX in self.allXsite:
+            if anX == atomName:
+                # print(anX, ": ", type(anX))
+                self.anionX = self.anionX + anX
+
+        ## identify bSite
+        for anX in self.allXsite:
             if anX == atomName:
                 # print(anX, ": ", type(anX))
                 self.anionX = self.anionX + anX
@@ -80,7 +92,7 @@ class CompoundObject:
             for i in x:
                 self.cationA += str(i)
         # ## identify catA
-        # for catA in self.allOrganicCationsA:
+        # for catA in self.allAsite:
         #     print(catA, ": ", type(catA))
 
 
