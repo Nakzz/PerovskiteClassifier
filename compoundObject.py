@@ -28,11 +28,11 @@ class CompoundObject:
     cationA = ""
     # organic = False                 #TODO: add classifier for organic
     composition = []
-    rAff = 0
-    rIon = 0
-    rIonName = ""
-    rB=0
-    rX=0
+    # rAff = 0
+    # rIon = 0
+    # rIonName = ""
+    # rB=0
+    # rX=0
     
 
     def __init__(self, ChemicalFormula):
@@ -47,9 +47,9 @@ class CompoundObject:
         #     print(x)
 
         # print(self.cationA)
-
-    def computeTF():
-        print("TODO: implement here")
+    #
+    # def computeTF():
+    #     print("TODO: implement here")
 
 
         # Identifies CationB and AnionX
