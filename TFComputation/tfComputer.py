@@ -12,6 +12,9 @@ chartStateRadii = {
 "Cl":	1.81,
 "Br":	1.96,
 "I":	2.2,
+    "N": 1.46,
+    "C": 0.16
+
 }
 
 def atomOnly(atomName):
@@ -22,19 +25,24 @@ df1= pd.DataFrame(columns=['ToleranceFactor'])
 
 for index, row in df.iterrows():
     # print(row['CationA'], row['CationB'], row["Anion X"], row["rMass"], row["rIon"])
-
+    id = row['ID(Khazana)'];
     catA = atomOnly(row['CationA'])
     catB = atomOnly(row['CationB'])
     anX = atomOnly(row["Anion X"])
     rMass = row["rMass"]
     rIonName = atomOnly(row["rIon"])
 
+    print(id)
+
     #TODO: compute rION from rIonName. what would these be?
-    # print(rIonName)
-    rIon =0;
+    if rIonName != "SKIP":
+        rIon = chartStateRadii.get(rIonName);
+    else:
+        print(rIonName)
+        rIon =0
 
     #compute for rA_Eff
-    rA_Eff = float(rMass) + float(rIon)
+    rA_Eff = float(rMass) + rIon
 
     #TODO: compute for rX_eff from anX
     rX_eff = chartStateRadii.get(anX);
@@ -63,4 +71,4 @@ for index, row in df.iterrows():
 
 # print(df1)
 
-# df1.to_csv("./tf.csv", sep=',')
+df1.to_csv("./tf.csv", sep=',')

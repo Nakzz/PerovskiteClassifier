@@ -1,6 +1,6 @@
 import re
 import json
-import perovskiteClassifier as main
+# import perovskiteClassifier as main
 
 class CompoundObject:
 
@@ -8,7 +8,8 @@ class CompoundObject:
     with open('./data/descriptors.json') as json_data_file:
         descriptorsData = json.load(json_data_file)
 
-    datasetName = main.dataset
+    # datasetName = main.dataset
+    datasetName = "ORR"
 
     if(datasetName == "Bandgap"):
         allXsite = descriptorsData[datasetName]["anionX"]
@@ -27,8 +28,12 @@ class CompoundObject:
     cationA = ""
     # organic = False                 #TODO: add classifier for organic
     composition = []
-
-
+    rAff = 0
+    rIon = 0
+    rIonName = ""
+    rB=0
+    rX=0
+    
 
     def __init__(self, ChemicalFormula):
         self.materialComposition = ChemicalFormula
@@ -41,7 +46,11 @@ class CompoundObject:
         # for x in self.allXsite:
         #     print(x)
 
-        print(self.cationA)
+        # print(self.cationA)
+
+    def computeTF():
+        print("TODO: implement here")
+
 
         # Identifies CationB and AnionX
     def indentifyClassifiers(self, atomName):
@@ -60,10 +69,10 @@ class CompoundObject:
                 self.anionX = self.anionX + anX
 
         ## identify bSite
-        for anX in self.allXsite:
-            if anX == atomName:
+        for a in self.allAsite:
+            if a == atomName:
                 # print(anX, ": ", type(anX))
-                self.anionX = self.anionX + anX
+                self.cationA = self.cationA + a
 
 
 

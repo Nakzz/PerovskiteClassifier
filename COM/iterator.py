@@ -41,7 +41,7 @@ quiet=1):
 
     cmd.reinitialize()
     cmd.reset()
-    cmd.load("C:/Temp/uw-cmg/Spring2019/cif_merge_organic/"+cifName + ".cif" )
+    cmd.load("C:/Temp/uw-cmg/Spring2019/perovskiteClassifier/COM/cif_merge_organic/"+cifName + ".cif" )
 
     centerofmass = cmd.centerofmass()
     print(centerofmass)
@@ -115,7 +115,7 @@ DESCRIPTION
     return (arg1, arg2)
 
 def processAll():
-    organicDirname = 'C:/Temp/uw-cmg/Spring2019/cif_merge_organic'
+    organicDirname = 'C:/Temp/uw-cmg/Spring2019/perovskiteClassifier/COM/cif_merge_organic'
     comDistanceAtom = []
 
     for filename in (os.listdir(organicDirname)):
@@ -128,6 +128,9 @@ def processAll():
         if(fileNum not in skip):
             comDistanceAtom.append(process(fileNum))
 
+
+
+
     for x in comDistanceAtom:
         print(x)
 
@@ -139,7 +142,7 @@ def processAll():
 
     # np.savetxt("rAff.csv", a, delimiter=",")
     pd.DataFrame(a).to_csv("./rAff.csv")
-
+    print ("End")
 
 
 

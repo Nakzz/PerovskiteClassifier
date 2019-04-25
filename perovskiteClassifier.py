@@ -7,9 +7,9 @@ import compoundObject as co
 import time
 start = time.time()
 
-#dataset = "Bandgap"   # Stability or Bandgap
+dataset = "Bandgap"   # Stability or Bandgap
 # dataset = "Stability"
-dataset = "ORR"
+# dataset = "ORR"
 
 if (dataset ==  "Stability"): file = pd.read_csv('./data/Input.csv')     # Stability Dataset
 if (dataset ==  "Bandgap"): file = pd.read_csv('./data/HSE_GGA.csv')     # Bandgap Dataset
@@ -18,7 +18,7 @@ if (dataset ==  "ORR"): file = pd.read_csv('./data/perovskite_ORR_V1.csv')     #
 #compute a b x
 # use mastmal get atomic radii (ionic? read goldmans tolerance papers)
 # use radii to find goldman tolerance
-
+rAeffFile = pd.read_csv('./COM/rAff.csv') 
 
 
 try:
@@ -36,6 +36,12 @@ try:
         eachCompound = co.CompoundObject(composition)
         moleculeComposition.append(eachCompound)
 
+    # for i, cell in enumerate(rAeffFile['Material composition']):
+
+    for index, row in rAeffFile.iterrows():
+        print(row['rMass'], row['rIon'])
+
+
 except KeyError:
     print("Make sure column called: Material composition exists.")
 
@@ -50,7 +56,8 @@ for  x in moleculeComposition:
 
 
 df = pd.DataFrame(data)
-print(df.head())
+df.columns = ['Material Composition', 'A site', 'B site', 'OSite']
+print(df.head(100))
 
 # outFilename = "./output/perovskiteClassifierOutput_" + dataset + ".csv"
 #
